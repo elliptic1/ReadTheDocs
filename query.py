@@ -10,7 +10,7 @@ def main(query):
     print(resp)
 
 
-def do_query(docsearch):
+def do_query(query):
     import os
     from langchain.llms import OpenAI
     from langchain.chains.question_answering import load_qa_chain
@@ -23,11 +23,10 @@ def do_query(docsearch):
     )
     docsearch = Pinecone.from_existing_index(index_name, embeddings)
 
-    query = "Tell me about how to read from Pinecone if I already have an index. Write example code with python."
     docs = docsearch.similarity_search(query, include_metadata=True)
 
     return chain.run(input_documents=docs, question=query)
 
 
 if __name__ == '__main__':
-    main("Tell me about how to read from Pinecone if I already have an index. Write example code with python.")
+    main("What is a collection, and how is it different than an index?")
